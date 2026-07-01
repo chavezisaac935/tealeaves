@@ -1,0 +1,37 @@
+from typing import Annotated
+
+from fastapi import FastAPI, HTTPException, Path, Response
+from pydantic import BaseModel
+from fastapi.middleware.cors import CORSMiddleware
+
+app = FastAPI()
+
+# Define the origins that are allowed to make requests to this backend
+origins = [
+    "http://localhost:5174", # Vite local port
+    "http://localhost:3000", # Create React App local port
+]
+
+# Add CORS middleware to the application
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"], # Allows all HTTP methods (GET, POST, PUT, DELETE, etc.)
+    allow_headers=["*"], # Allows all headers
+)
+
+class UserResponse(BaseModel):
+    user: str
+
+users = {
+    '1':"Isaac",
+    '2':"Ellie",
+    '3':"Irene"
+}
+
+@app.get("/items/{item_id}")
+async def read_item(item_id: Annotated[int, Path(gt = 0, lt = 4)]) -> UserResponse:
+    if str(item_id) not in users:
+        raise HTTPException(status_code = 404, detail="This user was not found")
+    return UserResponse(user=users[str(item_id)])
