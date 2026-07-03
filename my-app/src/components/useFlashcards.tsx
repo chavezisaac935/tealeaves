@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 
 type Card = {
@@ -12,7 +13,7 @@ export function useFlashcards() {
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        fetch('https://tea-backend-hpdsh9fzhccjewbh.centralus-01.azurewebsites.net/cards')
+        fetch(`${import.meta.env.VITE_API_URL}/cards`)
             .then(res => {
                 if (!res.ok) throw new Error(`HTTP ${res.status}`);
                 return res.json();

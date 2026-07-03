@@ -35,6 +35,11 @@ cards = [
     {"front": "Hello", "back": "Goodbye", "reviewCount": 0},
     {"front": "Hello", "back": "Goodbye", "reviewCount": 0},
     {"front": "Hello", "back": "Goodbye", "reviewCount": 0},
+    {"front": "Hello", "back": "Goodbye", "reviewCount": 0},
+    {"front": "Hello", "back": "Goodbye", "reviewCount": 0},
+    {"front": "Hello", "back": "Goodbye", "reviewCount": 0},
+    {"front": "Hello", "back": "Goodbye", "reviewCount": 0},
+    {"front": "Hello", "back": "Goodbye", "reviewCount": 0},
 ]
 
 users = {

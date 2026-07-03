@@ -14,12 +14,12 @@ export default function UserProfile() {
             }
             return response.json();
         })
-        .then((data) => {
-        setData(data);
+        .then((dataA) => {
+        setData(dataA);
         setLoading(false);
         })
-        .catch((error) => {
-        setError(error.message);
+        .catch((errorA) => {
+        setError(errorA.message);
         setLoading(false);
         });
     }, []);
