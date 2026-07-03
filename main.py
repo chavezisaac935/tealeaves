@@ -8,8 +8,8 @@ app = FastAPI()
 
 # Define the origins that are allowed to make requests to this backend
 origins = [
-    "http://localhost:5174", # Vite local port
-    "http://localhost:3000", # Create React App local port
+    "https://lively-sky-0fc85c010.7.azurestaticapps.net:5174", # Vite local port
+    "http://lively-sky-0fc85c010.7.azurestaticapps.net:3000", # Create React App local port
 ]
 
 # Add CORS middleware to the application
