@@ -25,6 +25,18 @@ app.add_middleware(
 class UserResponse(BaseModel):
     user: str
 
+class FlashCard(BaseModel):
+    front: str
+    back: str
+    reviewCount: int
+
+cards = [
+    {"front": "Hello", "back": "Goodbye", "reviewCount": 0},
+    {"front": "Hello", "back": "Goodbye", "reviewCount": 0},
+    {"front": "Hello", "back": "Goodbye", "reviewCount": 0},
+    {"front": "Hello", "back": "Goodbye", "reviewCount": 0},
+]
+
 users = {
     '1':"Isaac",
     '2':"Ellie",
@@ -36,3 +48,8 @@ async def read_item(item_id: Annotated[int, Path(gt = 0, lt = 4)]) -> UserRespon
     if str(item_id) not in users:
         raise HTTPException(status_code = 404, detail="This user was not found")
     return UserResponse(user=users[str(item_id)])
+
+@app.get("/cards")
+async def get_cards() -> list[FlashCard]:
+    return cards
+    
