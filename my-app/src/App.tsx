@@ -7,7 +7,7 @@ function App() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('http://127.0.0.1:8000/items/2')
+    fetch('https://tea-backend-hpdsh9fzhccjewbh.centralus-01.azurewebsites.net/items/1')
       .then((response) => {
         if(!response.ok) {
           throw new Error('Network response was not ok');
