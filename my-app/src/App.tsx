@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react'
 import './App.css'
 
 function App() {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState<{ user: string } | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     fetch('https://tea-backend-hpdsh9fzhccjewbh.centralus-01.azurewebsites.net/items/1')
@@ -23,6 +23,9 @@ function App() {
       setLoading(false);
     });
   }, []);
+
+  if (loading) return <div>Loading...</div>
+  if (error) return <div>Error: {error}</div>
 
   return (
     <>
