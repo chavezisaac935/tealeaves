@@ -1,11 +1,8 @@
 
 import { useEffect, useState } from "react";
+import FlashcardList from "./FlashcardList";
+import type Card from "../types";
 
-type Card = {
-    front: string;
-    back: string;
-    reviewCount: number;
-};
 
 export function useFlashcards() {
     const [cards, setCards] = useState<Card[]>([]);
@@ -22,5 +19,13 @@ export function useFlashcards() {
             .catch(err => { setError(err.message); setLoading(false); });
     }, []);
 
-    return { cards, loading, error };
+    async function updateCard(cardId: number): Promise<void> {
+        console.log("Here:"+cardId);
+        await fetch(`${import.meta.env.VITE_API_URL}/review_count/${cardId}`, { method: 'POST' });
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/cards`);
+        const updatedCards = await response.json();
+        setCards(updatedCards);
+    }
+
+    return <FlashcardList cards={cards} loading={loading} error={error} onAddItem={updateCard}/>;
 }

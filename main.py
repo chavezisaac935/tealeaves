@@ -26,20 +26,21 @@ class UserResponse(BaseModel):
     user: str
 
 class FlashCard(BaseModel):
+    id: int
     front: str
     back: str
     reviewCount: int
 
 cards = [
-    {"front": "Hello", "back": "Goodbye", "reviewCount": 0},
-    {"front": "Hello", "back": "Goodbye", "reviewCount": 0},
-    {"front": "Hello", "back": "Goodbye", "reviewCount": 0},
-    {"front": "Hello", "back": "Goodbye", "reviewCount": 0},
-    {"front": "Hello", "back": "Goodbye", "reviewCount": 0},
-    {"front": "Hello", "back": "Goodbye", "reviewCount": 0},
-    {"front": "Hello", "back": "Goodbye", "reviewCount": 0},
-    {"front": "Hello", "back": "Goodbye", "reviewCount": 0},
-    {"front": "Hello", "back": "Goodbye", "reviewCount": 0},
+    {"id":1, "front": "Bye", "back": "Goodbye", "reviewCount": 0},
+    {"id":2, "front": "Hello", "back": "Goodbye", "reviewCount": 0},
+    {"id":3, "front": "Hello", "back": "Goodbye", "reviewCount": 0},
+    {"id":4, "front": "Hello", "back": "Goodbye", "reviewCount": 0},
+    {"id":5, "front": "Hello", "back": "Goodbye", "reviewCount": 0},
+    {"id":6, "front": "Hello", "back": "Goodbye", "reviewCount": 0},
+    {"id":7, "front": "Hello", "back": "Goodbye", "reviewCount": 0},
+    {"id":8, "front": "Hello", "back": "Goodbye", "reviewCount": 0},
+    {"id":9, "front": "Hello", "back": "Goodbye", "reviewCount": 0},
 ]
 
 users = {
@@ -48,13 +49,18 @@ users = {
     '3':"Irene"
 }
 
-@app.get("/items/{item_id}")
-async def read_item(item_id: Annotated[int, Path(gt = 0, lt = 4)]) -> UserResponse:
-    if str(item_id) not in users:
+@app.get("/users/{user_id}")
+async def read_item(user_id: Annotated[int, Path(gt = 0, lt = 4)]) -> UserResponse:
+    if str(user_id) not in users:
         raise HTTPException(status_code = 404, detail="This user was not found")
-    return UserResponse(user=users[str(item_id)])
+    return UserResponse(user=users[str(user_id)])
 
 @app.get("/cards")
 async def get_cards() -> list[FlashCard]:
     return cards
-    
+
+@app.post("/review_count/{card_id}")
+async def update_review_count(card_id: int):
+    card_to_mutate = next((card for card in cards if card["id"] == card_id), None)
+    card_to_mutate["reviewCount"]+=1
+    return card_to_mutate

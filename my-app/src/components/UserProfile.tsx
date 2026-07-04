@@ -7,7 +7,7 @@ export default function UserProfile() {
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        fetch('https://tea-backend-hpdsh9fzhccjewbh.centralus-01.azurewebsites.net/items/1')
+        fetch(`${import.meta.env.VITE_API_URL}/users/1`)
         .then((response) => {
             if(!response.ok) {
             throw new Error('Network response was not ok');
