@@ -1,7 +1,5 @@
 import './App.css'
-import FlashcardContainer from './components/FlashcardContainer'
-import FlashcardList from './components/FlashcardList'
-import { useFlashcards } from './components/useFlashcards'
+import Flashcards  from './components/Flashcards'
 import NavBar from './components/NavBar'
 
 function App() {
@@ -9,9 +7,7 @@ function App() {
   return (
     <>
       <NavBar/>
-      <FlashcardContainer>
-      {useFlashcards()}
-      </FlashcardContainer>
+      <Flashcards />
     </>
   )
 }

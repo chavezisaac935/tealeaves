@@ -3,8 +3,7 @@ import { useEffect, useState } from "react";
 import FlashcardList from "./FlashcardList";
 import type Card from "../types";
 
-
-export function useFlashcards() {
+export default function Flashcards() {
     const [cards, setCards] = useState<Card[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -27,5 +26,7 @@ export function useFlashcards() {
         setCards(updatedCards);
     }
 
-    return <FlashcardList cards={cards} loading={loading} error={error} onAddItem={updateCard}/>;
+    return (
+        <FlashcardList cards={cards} loading={loading} error={error} onAddItem={updateCard}/>
+    );
 }

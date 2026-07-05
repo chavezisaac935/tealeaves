@@ -32,15 +32,11 @@ class FlashCard(BaseModel):
     reviewCount: int
 
 cards = [
-    {"id":1, "front": "Bye", "back": "Goodbye", "reviewCount": 0},
-    {"id":2, "front": "Hello", "back": "Goodbye", "reviewCount": 0},
-    {"id":3, "front": "Hello", "back": "Goodbye", "reviewCount": 0},
-    {"id":4, "front": "Hello", "back": "Goodbye", "reviewCount": 0},
-    {"id":5, "front": "Hello", "back": "Goodbye", "reviewCount": 0},
-    {"id":6, "front": "Hello", "back": "Goodbye", "reviewCount": 0},
-    {"id":7, "front": "Hello", "back": "Goodbye", "reviewCount": 0},
-    {"id":8, "front": "Hello", "back": "Goodbye", "reviewCount": 0},
-    {"id":9, "front": "Hello", "back": "Goodbye", "reviewCount": 0},
+    {"id":1, "front": "Who is the greatest team of all time?", "back": "France", "reviewCount": 0},
+    {"id":2, "front": "What does Irene like to collect", "back": "Rocks", "reviewCount": 0},
+    {"id":3, "front": "How many years since America's founding?", "back": "250", "reviewCount": 0},
+    {"id":4, "front": "When did Isaac and Ellie become official?", "back": "June 8th, 2019 (According to Ellie)", "reviewCount": 0},
+    {"id":5, "front": "Why not babies?", "back": "Always", "reviewCount": 0},
 ]
 
 users = {
