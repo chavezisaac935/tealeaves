@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import pool from './db/pool.js';
 
 const app = express();
 const PORT = 8000;
@@ -13,40 +14,38 @@ const origins = [
 app.use(cors({ origin: origins, credentials: true }));
 app.use(express.json());
 
-const users = {
-  1: 'Isaac',
-  2: 'Ellie',
-  3: 'Irene',
-};
-
-const cards = [
-  { id: 1, front: 'Who is the greatest team of all time?', back: 'France', reviewCount: 0 },
-  { id: 2, front: 'What does Irene like to collect', back: 'Rocks', reviewCount: 0 },
-  { id: 3, front: "How many years since America's founding?", back: '250', reviewCount: 0 },
-  { id: 4, front: 'When did Isaac and Ellie become official?', back: 'June 8th, 2019 (According to Ellie)', reviewCount: 0 },
-  { id: 5, front: 'Why not babies?', back: 'Always', reviewCount: 0 },
-];
-
-app.get('/users/:user_id', (req, res) => {
+app.get('/users/:user_id', async (req, res) => {
   const id = parseInt(req.params.user_id, 10);
-  if (id < 1 || id > 3 || !users[id]) {
-    return res.status(404).json({ detail: 'This user was not found' });
-  }
-  res.json({ user: users[id] });
+  const { rows } = await pool.query('SELECT name FROM users WHERE id = $1', [id]);
+  if (rows.length === 0) return res.status(404).json({ detail: 'This user was not found' });
+  res.json({ user: rows[0].name });
 });
 
-app.get('/cards', (req, res) => {
-  res.json(cards);
+app.get('/cards', async (req, res) => {
+  const { rows } = await pool.query('SELECT id, front, back, review_count AS "reviewCount" FROM cards');
+  res.json(rows);
 });
 
-app.post('/review_count/:card_id', (req, res) => {
+app.post('/review_count/:card_id', async (req, res) => {
   const id = parseInt(req.params.card_id, 10);
-  const card = cards.find((c) => c.id === id);
-  if (!card) {
-    return res.status(404).json({ detail: 'Card not found' });
+  const { rows } = await pool.query(
+    'UPDATE cards SET review_count = review_count + 1 WHERE id = $1 RETURNING id, front, back, review_count AS "reviewCount"',
+    [id]
+  );
+  if (rows.length === 0) return res.status(404).json({ detail: 'Card not found' });
+  res.json(rows[0]);
+});
+
+app.post('/add_card', async (req, res) => {
+  const query = 'INSERT INTO cards (front, back) VALUES ($1, $2) RETURNING id, front, back, review_count AS "reviewCount"'
+  const { front, back } = req.body;
+  if(!front || !back) {
+    return res.status(400).json({ detail: 'front and back are required' });
   }
-  card.reviewCount += 1;
-  res.json(card);
+  const { rows } = await pool.query(
+    query, [front, back]
+  );
+  res.status(201).json(rows[0]);
 });
 
 app.listen(PORT, () => {

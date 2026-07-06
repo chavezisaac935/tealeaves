@@ -3,7 +3,7 @@ An application that allows you to create and store flashcards using Markdown and
 
 ## Architectural Preferences
 - Azure Cloud Provider
-- Python 
+- Node.js 
 - React front end
 - LangChain and LangDB
 - OpenAI API
