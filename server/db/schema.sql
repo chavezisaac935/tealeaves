@@ -17,9 +17,14 @@ INSERT INTO users (name) VALUES
 ON CONFLICT DO NOTHING;
 
 INSERT INTO cards (front, back) VALUES
-  ('Who is the greatest team of all time?', 'France'),
-  ('What does Irene like to collect', 'Rocks'),
-  ('How many years since America''s founding?', '250'),
-  ('When did Isaac and Ellie become official?', 'June 8th, 2019 (According to Ellie)'),
-  ('Why not babies?', 'Always')
+  ('What is the Spanish word for "hello"?', 'Hola'),
+  ('How do you say "thank you" in Spanish?', 'Gracias'),
+  ('Translate: "Good morning"', 'Buenos días'),
+  ('What does "adiós" mean in English?', 'Goodbye'),
+  ('How do you say "please" in Spanish?', 'Por favor'),
+  ('Translate: "My name is..."', 'Mi nombre es... / Me llamo...'),
+  ('What is the Spanish word for "water"?', 'Agua'),
+  ('How do you say "Yes, please" in Spanish?', 'Sí, por favor'),
+  ('Translate: "Do you speak English?"', '¿Hablas inglés?'),
+  ('What does "de nada" mean in English?', 'You''re welcome')
 ON CONFLICT DO NOTHING;
